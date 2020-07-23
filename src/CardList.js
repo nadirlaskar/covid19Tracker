@@ -1,7 +1,9 @@
 import React, { Component, useState, useEffect } from "react";
 import Card from "./Card";
 
-class CardListOld extends Component {
+// CardList class based component
+// This component is not used
+export class CardListClass extends Component {
   // Removed
   constructor(props) {
     super(props);
@@ -44,9 +46,11 @@ class CardListOld extends Component {
     );
   }
 }
-
+// Works same as class based component but used hooks
+// and effects for life cycle methods
 function CardList() {
-  let [state, updateState] = useState({
+  // Create a state variable and save it to variables cases and updateCases
+  let [cases, updateCases] = useState({
     activeCases: 0,
     recoveredCases: 0,
     deaths: 0,
@@ -54,46 +58,35 @@ function CardList() {
     totalRecoveredCases: 0,
     totalDeaths: 0,
   });
-  // DidMount
-  useEffect(()=>{
-    fetch("https://disease.sh/v3/covid-19/all").then((res) => {
-        res.json().then((json) => {
-          let { cases, recovered, deaths, todayCases, todayDeaths, todayRecovered } = json;
-          updateState({
-            activeCases: todayCases,
-            recoveredCases: todayRecovered,
-            deaths: todayDeaths,
-            totalActiveCases: cases,
-            totalRecoveredCases: recovered,
-            totalDeaths: deaths,
-          });
-        });
-    });
-    return ()=>{ // Unmounting
-        console.log("unmounted");
-    }
-  })
-  // on Update
-  useEffect(()=>{
-    fetch("https://disease.sh/v3/covid-19/all").then((res) => {
-        res.json().then((json) => {
-          let { cases, recovered, deaths, todayCases, todayDeaths, todayRecovered } = json;
-          updateState({
-            activeCases: todayCases,
-            recoveredCases: todayRecovered,
-            deaths: todayDeaths,
-            totalActiveCases: cases,
-            totalRecoveredCases: recovered,
-            totalDeaths: deaths,
-          });
-        });
-    });
-    return ()=>{ // Unmounting
-        console.log("unmounted");
-    }
-  },[state.activeCases])
 
-  const { activeCases, recoveredCases, deaths, totalActiveCases, totalDeaths, totalRecoveredCases } = state;
+  // This effect the serves the same purpouse as componentDidMount of class component
+  useEffect(()=>{
+    fetch("https://disease.sh/v3/covid-19/all").then((res) => {
+        res.json().then((json) => {
+          let { cases, recovered, deaths, todayCases, todayDeaths, todayRecovered } = json;
+          updateCases({
+            activeCases: todayCases,
+            recoveredCases: todayRecovered,
+            deaths: todayDeaths,
+            totalActiveCases: cases,
+            totalRecoveredCases: recovered,
+            totalDeaths: deaths,
+          });
+        });
+    });
+    return ()=>{ // Unmounting
+        console.log("unmounted");
+    }
+  },[]) // note we are not passing an empty array, suggesting it doesn't depend on any values
+
+  // Dummy effect used to show case onUpdate lifecycle hook
+  useEffect(()=>{
+    console.log("I am called on update of any depency");
+    console.log("In this case cases.activeCases");
+  },[cases.activeCases])
+  // extarct the values from the state object cases
+  const { activeCases, recoveredCases, deaths, totalActiveCases, totalDeaths, totalRecoveredCases } = cases;
+  // render card for each information
   return (
     <div>
       <Card color="#cc1034" title="Coronavirus Cases" mainText={activeCases} footerText={totalActiveCases} />
