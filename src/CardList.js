@@ -1,5 +1,6 @@
 import React, { Component, useState, useEffect } from "react";
 import Card from "./Card";
+import { formatMillions } from "./utils";
 
 // CardList class based component
 // This component is not used
@@ -60,38 +61,39 @@ function CardList() {
   });
 
   // This effect the serves the same purpouse as componentDidMount of class component
-  useEffect(()=>{
+  useEffect(() => {
     fetch("https://disease.sh/v3/covid-19/all").then((res) => {
-        res.json().then((json) => {
-          let { cases, recovered, deaths, todayCases, todayDeaths, todayRecovered } = json;
-          updateCases({
-            activeCases: todayCases,
-            recoveredCases: todayRecovered,
-            deaths: todayDeaths,
-            totalActiveCases: cases,
-            totalRecoveredCases: recovered,
-            totalDeaths: deaths,
-          });
+      res.json().then((json) => {
+        let { cases, recovered, deaths, todayCases, todayDeaths, todayRecovered } = json;
+        updateCases({
+          activeCases: todayCases,
+          recoveredCases: todayRecovered,
+          deaths: todayDeaths,
+          totalActiveCases: formatMillions(cases),
+          totalRecoveredCases: formatMillions(recovered),
+          totalDeaths: formatMillions(deaths),
         });
+      });
     });
-    return ()=>{ // Unmounting
-        console.log("unmounted");
-    }
-  },[]) // note we are not passing an empty array, suggesting it doesn't depend on any values
+    return () => {
+      // Unmounting
+      console.log("unmounted");
+    };
+  }, []); // note we are not passing an empty array, suggesting it doesn't depend on any values
 
   // Dummy effect used to show case onUpdate lifecycle hook
-  useEffect(()=>{
+  useEffect(() => {
     console.log("I am called on update of any depency");
     console.log("In this case cases.activeCases");
-  },[cases.activeCases])
+  }, [cases.activeCases]);
   // extarct the values from the state object cases
   const { activeCases, recoveredCases, deaths, totalActiveCases, totalDeaths, totalRecoveredCases } = cases;
   // render card for each information
   return (
     <div>
-      <Card color="#cc1034" title="Coronavirus Cases" mainText={activeCases} footerText={totalActiveCases} />
-      <Card color="rgb(62, 109, 21)" title="Recovered" mainText={recoveredCases} footerText={totalRecoveredCases} />
-      <Card color="rgb(199, 39, 70)" title="Deaths" mainText={deaths} footerText={totalDeaths} />
+      <Card color="rgba(204, 16, 52, 0.64)" title="Coronavirus Cases" mainText={activeCases} footerText={totalActiveCases} />
+      <Card color="rgba(62, 109, 21, 0.59)" title="Recovered" mainText={recoveredCases} footerText={totalRecoveredCases} />
+      <Card color="rgb(208, 167, 174)" title="Deaths" mainText={deaths} footerText={totalDeaths} />
     </div>
   );
 }

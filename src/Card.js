@@ -29,6 +29,7 @@ const cardFooterTextStyle = {
   fontSize: 12,
   fontWeight: 700,
   margin: "8px 0",
+  color: "rgb(156, 156, 156)"
 };
 
 // Card component extended from class Component of react
