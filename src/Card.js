@@ -8,7 +8,7 @@ const cardStyle = {
   minWidth: 240,
   display: "inline-block",
   padding: 16,
-  border: "4px solid rgba(255, 255, 255, 0.2)",
+  border: "0px solid rgba(255, 255, 255, 0.2)",
   margin: 16,
   cursor: "pointer",
   backgroundColor: "inherit",
