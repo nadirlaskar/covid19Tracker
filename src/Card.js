@@ -8,12 +8,12 @@ const cardStyle = {
   minWidth: 250,
   display: "inline-block",
   padding: 16,
-  border: "1px solid #eee",
+  border: "4px solid rgba(255, 255, 255, 0.2)",
   margin: 16,
   cursor: "pointer",
-  backgroundColor: "white",
+  backgroundColor: "inherit",
   borderRadius: 12,
-  boxShadow: "0 0 8px -4px rgba(0,0,0, 0.5)",
+  boxShadow: "rgba(255, 255, 255, 0.5) -6px -6px 16px 0px, rgba(209, 205, 199, 0.5) 6px 6px 16px 0px",
 };
 const cardTitleStyle = {
   color: "#695d5c",

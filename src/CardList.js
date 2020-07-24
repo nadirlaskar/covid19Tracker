@@ -90,8 +90,8 @@ function CardList() {
   return (
     <div>
       <Card color="#cc1034" title="Coronavirus Cases" mainText={activeCases} footerText={totalActiveCases} />
-      <Card color="#7fd922" title="Recovered" mainText={recoveredCases} footerText={totalRecoveredCases} />
-      <Card color="#FA5575" title="Deaths" mainText={deaths} footerText={totalDeaths} />
+      <Card color="rgb(62, 109, 21)" title="Recovered" mainText={recoveredCases} footerText={totalRecoveredCases} />
+      <Card color="rgb(199, 39, 70)" title="Deaths" mainText={deaths} footerText={totalDeaths} />
     </div>
   );
 }
