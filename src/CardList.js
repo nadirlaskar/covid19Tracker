@@ -94,7 +94,7 @@ function CardList() {
       <Card color="rgba(204, 16, 52, 0.64)" title="Coronavirus Cases" mainText={activeCases} footerText={totalActiveCases} />
       <Card color="rgba(62, 109, 21, 0.59)" title="Recovered" mainText={recoveredCases} footerText={totalRecoveredCases} />
       <Card color="rgb(208, 167, 174)" title="Deaths" mainText={deaths} footerText={totalDeaths} />
-      <h2 style={{display:"inline-block", color: "rgba(51, 51, 51, 0.2)"}}>Worldwide</h2>
+      <h2 style={{display:"inline-block", color: "rgba(51, 51, 51, 0.2)", margin:"0 32px"}}>Worldwide</h2>
     </div>
   );
 }
