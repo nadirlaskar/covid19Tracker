@@ -1,0 +1,35 @@
+.card {
+  min-width: 230px;
+  display: inline-block;
+  padding: 16px;
+  border: 0px solid rgba(255, 255, 255, 0.2);
+  margin: 16px;
+  cursor: pointer;
+  background-color: inherit;
+  border-radius: 12px;
+  transition: box-shadow 0.6s ease;
+  box-shadow: rgba(255, 255, 255, 0.5) -6px -6px 16px 0px, rgba(209, 205, 199, 0.5) 6px 6px 16px 0px;
+}
+
+.card:active {
+  box-shadow: inset rgba(255, 255, 255, 0.5) -6px -6px 16px 0px, inset rgba(209, 205, 199, 0.5) 6px 6px 16px 0px;
+}
+
+.card .title {
+  color: #695d5c;
+  font-weight: 400;
+  font-size: 14px;
+}
+
+.card .main-text {
+  font-size: 32px;
+  font-weight: 600;
+  margin: 8px 0;
+}
+
+.card .footer-text {
+  font-size: 12px;
+  font-weight: 700;
+  margin: 8px 0;
+  color: rgb(156, 156, 156);
+}
