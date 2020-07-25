@@ -5,7 +5,7 @@ import React, { Component } from "react";
  * using inline styles
  */
 const cardStyle = {
-  minWidth: 240,
+  minWidth: 225,
   display: "inline-block",
   padding: 16,
   border: "0px solid rgba(255, 255, 255, 0.2)",
