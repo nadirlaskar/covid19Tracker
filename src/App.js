@@ -10,6 +10,8 @@ function App() {
       <CardList />
       <CardList country="USA"/>
       <CardList country="India"/>
+      <CardList country="UK"/>
+      <CardList country="China"/>
     </div>
   );
 }
