@@ -1,55 +1,11 @@
 import React, { Component, useState, useEffect } from "react";
 import Card from "./Card";
 import { formatMillions } from "./utils";
+import "./cardList.css";
 
-// CardList class based component
-// This component is not used
-export class CardListClass extends Component {
-  // Removed
-  constructor(props) {
-    super(props);
-    // useState
-    this.state = {
-      activeCases: 0,
-      recoveredCases: 0,
-      deaths: 0,
-      totalActiveCases: 0,
-      totalRecoveredCases: 0,
-      totalDeaths: 0,
-    };
-  }
-  // useEffect
-  componentDidMount() {
-    fetch("https://disease.sh/v3/covid-19/all").then((res) => {
-      res.json().then((json) => {
-        let { cases, recovered, deaths, todayCases, todayDeaths, todayRecovered } = json;
-        // updateState
-        this.setState({
-          activeCases: todayCases,
-          recoveredCases: todayRecovered,
-          deaths: todayDeaths,
-          totalActiveCases: cases,
-          totalRecoveredCases: recovered,
-          totalDeaths: deaths,
-        });
-      });
-    });
-  }
-  // Function Body
-  render() {
-    const { activeCases, recoveredCases, deaths, totalActiveCases, totalDeaths, totalRecoveredCases } = this.state;
-    return (
-      <div>
-        <Card color="#cc1034" title="Coronavirus Cases" mainText={activeCases} footerText={totalActiveCases} />
-        <Card color="#7fd922" title="Recovered" mainText={recoveredCases} footerText={totalRecoveredCases} />
-        <Card color="#FA5575" title="Deaths" mainText={deaths} footerText={totalDeaths} />
-      </div>
-    );
-  }
-}
 // Works same as class based component but used hooks
 // and effects for life cycle methods
-function CardList() {
+function CardList({ country = "Worldwide" }) {
   // Create a state variable and save it to variables cases and updateCases
   let [cases, updateCases] = useState({
     activeCases: 0,
@@ -62,8 +18,13 @@ function CardList() {
 
   // This effect the serves the same purpouse as componentDidMount of class component
   useEffect(() => {
-    fetch("https://disease.sh/v3/covid-19/all").then((res) => {
+    let isCountry = country !== "Worldwide";
+    let dataSource = isCountry ? "countries" : "all";
+    fetch(`https://disease.sh/v3/covid-19/${dataSource}`).then((res) => {
       res.json().then((json) => {
+        if (isCountry) {
+          json = json.find((x) => x.country == country) ?? cases;
+        }
         let { cases, recovered, deaths, todayCases, todayDeaths, todayRecovered } = json;
         updateCases({
           activeCases: todayCases,
@@ -90,11 +51,23 @@ function CardList() {
   const { activeCases, recoveredCases, deaths, totalActiveCases, totalDeaths, totalRecoveredCases } = cases;
   // render card for each information
   return (
-    <div>
-      <Card color="rgba(204, 16, 52, 0.64)" title="Coronavirus Cases" mainText={activeCases} footerText={totalActiveCases} />
-      <Card color="rgba(62, 109, 21, 0.59)" title="Recovered" mainText={recoveredCases} footerText={totalRecoveredCases} />
+    <div className="cardList">
+      <h2>
+        {country.toUpperCase()}
+      </h2>
+      <Card
+        color="rgba(204, 16, 52, 0.64)"
+        title="Coronavirus Cases"
+        mainText={activeCases}
+        footerText={totalActiveCases}
+      />
+      <Card
+        color="rgba(62, 109, 21, 0.59)"
+        title="Recovered"
+        mainText={recoveredCases}
+        footerText={totalRecoveredCases}
+      />
       <Card color="rgb(208, 167, 174)" title="Deaths" mainText={deaths} footerText={totalDeaths} />
-      <h2 style={{display:"inline-block", color: "rgba(51, 51, 51, 0.2)", margin:"0 32px"}}>Worldwide</h2>
     </div>
   );
 }
